@@ -1,5 +1,3 @@
-const { sequelize, DataTypes } = require("sequelize");
-
 module.exports = (sequelize, DataTypes) => {
   const post = sequelize.define("post", {
     id: {
@@ -9,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     title: {
       type: DataTypes.INTEGER,
+      varch: 200,
     },
   });
 };
