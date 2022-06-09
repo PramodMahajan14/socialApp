@@ -3,9 +3,11 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 const { typeDefs } = require("./schema");
 const { Query } = require("./resolvers/Query");
+const { Mutation } = require("./resolvers/Mutation");
 const url = "locahost://5000";
 const mysql = require("mysql");
-require("./models/index");
+const database = require("./models/index");
+
 // const con = mysql.createConnection({
 //   host: process.env.DATABASE_ENDPOINT,
 //   port: process.env.DATABASE_PORT,
@@ -23,6 +25,10 @@ const server = new ApolloServer({
   typeDefs,
   resolvers: {
     Query,
+    Mutation,
+  },
+  context: {
+    database,
   },
 });
 
