@@ -7,9 +7,10 @@ class PostPayloadType {
   }
 }
 const Mutation = {
-  PostCreate: (parent, { title, content }, { database }) => {
-    database.post.create({ title, content });
-    return;
+  PostCreate: async (parent, { title, content }, { post }) => {
+    const repo = await post.create({ title, content });
+    console.log(repo);
+    return "sucess";
   },
 };
 

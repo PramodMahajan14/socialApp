@@ -5,7 +5,7 @@ exports.typeDefs = gql`
     hello: String!
   }
   type Mutation {
-    PostCreate(title: String!, content: String!): postPayload!
+    PostCreate(title: String!, content: String!): String!
   }
   type Post {
     id: ID!
@@ -28,11 +28,16 @@ exports.typeDefs = gql`
     bio: String!
     user: User!
   }
-  type UserError {
+  # type UserError {
+  #   message: String!
+  # }
+  # type postPayload {
+  #   userError: [UserError!]!
+  #   post: Post
+  # }
+
+  type Response {
+    # status: Int!
     message: String!
-  }
-  type postPayload {
-    userError: [UserError!]!
-    post: Post
   }
 `;

@@ -7,7 +7,9 @@ const { Mutation } = require("./resolvers/Mutation");
 const url = "locahost://5000";
 const mysql = require("mysql");
 const database = require("./models/index");
-
+const post = require("./models/post");
+const profile = require("./models/profile");
+const User = require("./models/User");
 // const con = mysql.createConnection({
 //   host: process.env.DATABASE_ENDPOINT,
 //   port: process.env.DATABASE_PORT,
@@ -28,7 +30,7 @@ const server = new ApolloServer({
     Mutation,
   },
   context: {
-    database,
+    post,
   },
 });
 
