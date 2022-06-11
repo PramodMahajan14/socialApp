@@ -31,6 +31,8 @@ const server = new ApolloServer({
   },
   context: {
     post,
+    User,
+    profile,
   },
 });
 

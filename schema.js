@@ -5,6 +5,8 @@ exports.typeDefs = gql`
     posts: [Post!]!
   }
   type Mutation {
+    SignUp(input: createUser!): resp!
+    SignIn(input: loginUser): LoginAuth!
     PostCreate(title: String!, content: String!): resp!
     PostUpdate(input: updatePost): resp!
     PostDelete(id: Int!): resp!
@@ -44,9 +46,24 @@ exports.typeDefs = gql`
   type response {
     resp: resp
   }
+  type LoginAuth {
+    token: String!
+    isVerified: Boolean!
+    status: Int
+  }
   input updatePost {
     id: ID!
     title: String!
     content: String!
+  }
+  input createUser {
+    email: String!
+    name: String!
+    password: String!
+    bio: String!
+  }
+  input loginUser {
+    email: String!
+    password: String!
   }
 `;

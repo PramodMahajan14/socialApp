@@ -1,5 +1,7 @@
 const { isInterfaceType } = require("graphql");
-
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const Profile = require("../models/profile");
 class PostPayloadType {
   userErros(error) {
     message = error;
@@ -65,6 +67,53 @@ const Mutation = {
         status: 200,
       };
     }
+  },
+  SignUp: async (parent, { input }, { User, profile }) => {
+    const { email, name, bio, password } = input;
+    if (!email || !name || !bio || !password) {
+      return {
+        message: "All filed require !",
+        status: 201,
+      };
+    }
+    //regex for valid email
+    const emailRegexp =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    if (!emailRegexp.test(email)) {
+      return {
+        message: "This Email InValid",
+        status: 201,
+      };
+    }
+    const userExist = await User.findOne({ where: { email } });
+    // console.log(!userExist);
+    if (userExist) {
+      return {
+        message: "This Email Already Exist",
+        status: 201,
+      };
+    }
+    if (password.length <= 6) {
+      return {
+        message: "Password must be 6 character",
+        status: 201,
+      };
+    }
+    const passwordHash = await bcrypt.hash(password, 12);
+    const respose = await User.create({ name, email, password: passwordHash });
+    const rep = JSON.stringify(respose);
+
+    var result = rep.map((a) => {
+      return a.id;
+    });
+    console.log(result);
+    console.log(rep.id);
+    // const response2 = await profile.create({ bio, userId: 1 });
+    // console.log(response2);
+    return {
+      message: "sucess",
+      status: 200,
+    };
   },
 };
 
