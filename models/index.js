@@ -9,7 +9,7 @@ User.hasMany(Post, {
 User.hasOne(Profile);
 
 sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     console.log("async");
   })

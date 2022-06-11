@@ -2,10 +2,12 @@ const { gql } = require("apollo-server");
 
 exports.typeDefs = gql`
   type Query {
-    hello: String!
+    posts: [Post!]!
   }
   type Mutation {
-    PostCreate(title: String!, content: String!): String!
+    PostCreate(title: String!, content: String!): resp!
+    PostUpdate(input: updatePost): resp!
+    PostDelete(id: Int!): resp!
   }
   type Post {
     id: ID!
@@ -29,15 +31,22 @@ exports.typeDefs = gql`
     user: User!
   }
   # type UserError {
-  #   message: String!
+  #   message: String
   # }
   # type postPayload {
-  #   userError: [UserError!]!
+  #   userError: [UserError!]
   #   post: Post
   # }
-
-  type Response {
-    # status: Int!
+  type resp {
+    status: Int!
     message: String!
+  }
+  type response {
+    resp: resp
+  }
+  input updatePost {
+    id: ID!
+    title: String!
+    content: String!
   }
 `;
