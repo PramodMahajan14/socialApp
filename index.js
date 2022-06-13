@@ -15,18 +15,6 @@ const profile = require("./models/profile");
 const User = require("./models/User");
 const app = express();
 const http = require("http");
-// const con = mysql.createConnection({
-//   host: process.env.DATABASE_ENDPOINT,
-//   port: process.env.DATABASE_PORT,
-//   user: process.env.DATABASE_USER,
-//   password: process.env.DATABASE_PASSWORD,
-//   database: process.env.DATABASE_NAME,
-// });
-
-// con.connect((err) => {
-//   if (err) throw err;
-//   console.log("connection successfully");
-// });
 
 const server = new ApolloServer({
   typeDefs,
@@ -40,19 +28,15 @@ const server = new ApolloServer({
     profile,
   },
 });
-
+// server start using express
 server.start().then((res) => {
   server.applyMiddleware({ app, path: "/api/v1" });
   app.listen({ port: 4000 }, () =>
     console.log("Now browse to http://localhost:4000" + server.graphqlPath)
   );
 });
-// server.start();
-// server.applyMiddleware({ app, path: "/api" });
 
-// app.listen({ port: 4000 }, () =>
-//   console.log(`🚀 Server ready at http://localhost:4000`)
-// );
+// server start using apollo
 
 // const server = new ApolloServer({
 //   typeDefs,
