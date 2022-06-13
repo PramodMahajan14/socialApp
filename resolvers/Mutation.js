@@ -86,7 +86,7 @@ const Mutation = {
       };
     }
     const userExist = await User.findOne({ where: { email } });
-    // console.log(!userExist);
+    // console.log(userExist);
     if (userExist) {
       return {
         message: "This Email Already Exist",
@@ -103,10 +103,7 @@ const Mutation = {
     const respose = await User.create({ name, email, password: passwordHash });
     const rep = JSON.stringify(respose);
 
-    var result = rep.map((a) => {
-      return a.id;
-    });
-    console.log(result);
+    console.log(rep);
     console.log(rep.id);
     // const response2 = await profile.create({ bio, userId: 1 });
     // console.log(response2);
