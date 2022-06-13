@@ -101,10 +101,11 @@ const Mutation = {
     }
     const passwordHash = await bcrypt.hash(password, 12);
     const respose = await User.create({ name, email, password: passwordHash });
-    const rep = JSON.stringify(respose);
+    const rep = JSON.parse(respose);
 
     console.log(rep);
     console.log(rep.id);
+    // console.log(respose.user.dataValues.id);
     // const response2 = await profile.create({ bio, userId: 1 });
     // console.log(response2);
     return {

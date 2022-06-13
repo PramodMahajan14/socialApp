@@ -30,7 +30,7 @@ const server = new ApolloServer({
 });
 // server start using express
 server.start().then((res) => {
-  server.applyMiddleware({ app, path: "/api/v1" });
+  server.applyMiddleware({ app, path: "/api/v11" });
   app.listen({ port: 4000 }, () =>
     console.log("Now browse to http://localhost:4000" + server.graphqlPath)
   );
