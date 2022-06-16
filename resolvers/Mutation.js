@@ -1,13 +1,7 @@
-const { isInterfaceType } = require("graphql");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const Profile = require("../models/profile");
-class PostPayloadType {
-  userErros(error) {
-    message = error;
-    return message;
-  }
-}
+// const Profile = require("../models/profile");
+
 const Mutation = {
   PostCreate: async (parent, { title, content }, { post }) => {
     if (!title || !content) {
@@ -99,15 +93,12 @@ const Mutation = {
         status: 201,
       };
     }
-    const passwordHash = await bcrypt.hash(password, 12);
+    const passwordHash = await bcrypt.hash(password, 10);
     const respose = await User.create({ name, email, password: passwordHash });
-    const rep = JSON.parse(respose);
 
-    console.log(rep);
-    console.log(rep.id);
-    // console.log(respose.user.dataValues.id);
-    // const response2 = await profile.create({ bio, userId: 1 });
-    // console.log(response2);
+    // console.log(respose.id);
+    const response2 = await profile.create({ bio, userId: respose.id });
+    console.log(response2);
     return {
       message: "sucess",
       status: 200,
