@@ -7,7 +7,7 @@ dotenv.config({ path: "./config.env" });
 const { typeDefs } = require("./schema");
 const { Query } = require("./resolvers/Query");
 const { Mutation } = require("./resolvers/Mutation");
-const port = 4000;
+const PORT = 4000 || env.process.PORT;
 const mysql = require("mysql");
 const database = require("./models/index");
 const post = require("./models/post");
@@ -31,7 +31,7 @@ const server = new ApolloServer({
 // server start using express
 server.start().then((res) => {
   server.applyMiddleware({ app, path: "/api/v11" });
-  app.listen({ port: 4000 }, () =>
+  app.listen({ port: PORT }, () =>
     console.log("Now browse to http://localhost:4000" + server.graphqlPath)
   );
 });
